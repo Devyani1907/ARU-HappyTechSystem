@@ -42,7 +42,6 @@
                         </div>
                     </div>
                   </div>
-                  
                   <hr/>
                 <!-- BODY CONTENT -->
                 <div class="card card-info">
