@@ -31,18 +31,16 @@
         <div class="row">
           <div class="col-md-12 text-center index-head">
             <h1>Welcome to <strong>HappyTech</strong></h1>
-            <p><a class="btn btn-success btn-lg" href="/login" role="button">Post A Job</a> <a
-                        class="btn btn-danger btn-lg" href="/login" role="button">Find Jobs</a></p>
+            <p><a class="btn btn-success btn-lg" href="/login" role="button">Post A Job</a>
+             <a class="btn btn-danger btn-lg" href="/login" role="button">Find Jobs</a></p>
           </div>
         </div>
       </div>
     </section>
-
     <section class="content-header">
       <div class="container">
         <div class="row">
           <div class=" latest-job margin-bottom-20">
-          
             <div class="attachment-block col-md-12">
               <div class="attachment">
                 <h4 class="attachment-heading"><a href="view-job-post.php?id="></a> <span class="attachment-heading">/Month</span></h4>
@@ -50,27 +48,20 @@
                     <div class="job_meta"><p>Posted By:</p> <strong></strong>
                         <p>Location:</p> <strong></strong>
                         <p>Experience:</p> <strong> Years</strong>
-
                     </div>
                 </div>
               </div>
             </div>
-         
-
           </div>
         </div>
       </div>
     </section>
-
     <section id="statistics" class="content-header">
       <div class="container">
         <div class="row">
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
           <div class="small-box link_box">
             <div class="inner">
-            
-
               <p>Job Offers</p>
             </div>
             <div class="icon">
@@ -78,14 +69,9 @@
             </div>
           </div>
         </div>
-        <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
           <div class="small-box link_box">
             <div class="inner">
-                  
-              
-
               <p>Registered Company</p>
             </div>
             <div class="icon">
@@ -93,13 +79,9 @@
             </div>
           </div>
         </div>
-        <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
           <div class="small-box link_box">
             <div class="inner">
-           
-
               <p>CV'S/Resume</p>
             </div>
             <div class="icon">
@@ -107,13 +89,9 @@
             </div>
           </div>
         </div>
-        <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
           <div class="small-box link_box">
             <div class="inner">
-             
-
               <p>Active Users</p>
             </div>
             <div class="icon">
@@ -121,23 +99,15 @@
             </div>
           </div>
         </div>
-        <!-- ./col -->
       </div>
       </div>
     </section>
-
-
   </div>
-  <!-- /.content-wrapper -->
-
-
 </div>
-<!-- ./wrapper -->
 
-<!-- jQuery 3 -->
 <script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="dist/js/adminlte.js"></script>
+
 </body>
 </html>
