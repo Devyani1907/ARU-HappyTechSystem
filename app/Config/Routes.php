@@ -37,6 +37,8 @@ $routes->get('/registration', 'UserController::registration');
 $routes->get('/dashboard', 'UserController::dashboard'); 
 $routes->get('/sendfeedback', 'UserController::sendFeedbackTemplate'); 
 $routes->get('/contactus', 'UserController::contactUs'); 
+$routes->get('/findjob', 'JobController::findJob'); 
+$routes->get('/about-contactUs', 'HomeController::AboutAndContactUS'); 
 
 /**
  * --------------------------------------------------------------------
