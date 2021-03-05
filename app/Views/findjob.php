@@ -77,9 +77,7 @@
 	<!--  End Header Section  -->
         <section class="content pt-2">
         <div class="container-fluid">
-
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
+			<div class="row">
             <?php
                 for ($x = 0; $x < 4; $x++)
                 {

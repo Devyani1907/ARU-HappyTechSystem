@@ -7,6 +7,9 @@ class HomeController extends BaseController
 		return view('Home');
 	}
 
-	//--------------------------------------------------------------------
+	public function AboutAndContactUS()
+	{
+		return view('aboutandcontactus');
+	}
 
 }

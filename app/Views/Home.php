@@ -28,11 +28,12 @@
   <div class="content-wrapper" style="margin-left: 0px;">
     <section class="content-header bg-main">
       <div class="container">
+      <p><a class="btn btn-info btn-lg float-right" href="/about-contactUs" role="button">About us</a>
         <div class="row">
           <div class="col-md-12 text-center index-head">
             <h1>Welcome to <strong>HappyTech</strong></h1>
             <p><a class="btn btn-success btn-lg" href="/login" role="button">Post A Job</a>
-             <a class="btn btn-danger btn-lg" href="/login" role="button">Find Jobs</a></p>
+             <a class="btn btn-danger btn-lg" href="/findjob" role="button">Find Jobs</a></p>
           </div>
         </div>
       </div>
