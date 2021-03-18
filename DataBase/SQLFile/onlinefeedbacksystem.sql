@@ -1,10 +1,9 @@
-Create schema if not exists onlinefeedbacksystem;
 -- phpMyAdmin SQL Dump
 -- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2021 at 03:45 PM
+-- Generation Time: Mar 18, 2021 at 10:34 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -48,6 +47,14 @@ CREATE TABLE `candidatedetail` (
   `ModifiedDateTime` timestamp NULL DEFAULT NULL,
   `Education` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `candidatedetail`
+--
+
+INSERT INTO `candidatedetail` (`CandidateID`, `FirstName`, `LastName`, `CVPath`, `PostId`, `FeedbackId`, `FeedbackFormNameInPDF`, `IsFeedbackDone`, `Email`, `Address`, `MobileNumber`, `DateOfBirth`, `ExperienceInYears`, `CandidateCode`, `IsDeleted`, `CreatedDateTime`, `ModifiedDateTime`, `Education`) VALUES
+(0, 'Devyani', 'Pandey', 'C:\\xampp\\htdocs\\HappyTechSystem\\CV\\Devyani Resume UK.pdf', 1, NULL, NULL, NULL, 'devyani.r.pandey@gmail.com', 'Abhishek Flat', '232323232', '1996-10-28 00:00:00', 2, NULL, NULL, '2021-01-01 00:00:00', '0000-00-00 00:00:00', 'Master'),
+(1, 'Hiren', 'Neema', 'C:\\xampp\\htdocs\\HappyTechSystem\\CV\\Devyani Resume UK.pdf', 1, NULL, NULL, NULL, 'devyani.r.pandey@gmail.com', 'D2 Abhishek', '3232232', '1996-10-28 00:00:00', 6, NULL, NULL, '2021-01-05 00:00:00', '0000-00-00 00:00:00', 'MCA');
 
 -- --------------------------------------------------------
 
@@ -113,18 +120,6 @@ CREATE TABLE `employeedetail` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `headersectiondetail`
---
-
-CREATE TABLE `headersectiondetail` (
-  `HeaderColumnID` int(11) NOT NULL,
-  `HeaderColumnName` varchar(45) DEFAULT NULL,
-  `TempateDetailId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `postdetail`
 --
 
@@ -140,6 +135,13 @@ CREATE TABLE `postdetail` (
   `ModifiedDateTime` timestamp NULL DEFAULT NULL,
   `Education` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `postdetail`
+--
+
+INSERT INTO `postdetail` (`PostId`, `PostName`, `PostOpeningDateTime`, `PostClosingDateTime`, `VacancyAvail`, `ExperienceInYears`, `IsDeleted`, `CreatedDateTime`, `ModifiedDateTime`, `Education`) VALUES
+(1, 'Software Develoer', '2020-10-28 00:00:00', '2021-06-05 00:00:00', 5, 2, NULL, '2020-10-03 00:00:00', NULL, 'Master');
 
 -- --------------------------------------------------------
 
@@ -163,11 +165,43 @@ CREATE TABLE `roledetail` (
 
 CREATE TABLE `templatedetail` (
   `TemplateId` int(11) NOT NULL,
-  `Name` varchar(45) NOT NULL,
-  `IsDeleted` binary(1) DEFAULT NULL,
+  `Name` varchar(45) DEFAULT NULL,
+  `IsDeleted` binary(1) DEFAULT '0',
   `CreatedDateTime` timestamp NULL DEFAULT NULL,
   `ModifiedDateTime` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `templatedetail`
+--
+
+INSERT INTO `templatedetail` (`TemplateId`, `Name`, `IsDeleted`, `CreatedDateTime`, `ModifiedDateTime`) VALUES
+(1, 'HR Feedback Template', NULL, '2021-03-15 23:02:36', NULL),
+(2, 'Practical  Feedback Template', NULL, '2021-03-15 23:02:36', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `templatefieldsdetail`
+--
+
+CREATE TABLE `templatefieldsdetail` (
+  `TemplatefieldId` int(11) NOT NULL,
+  `TemplateLabel` varchar(45) DEFAULT NULL,
+  `FieldType` varchar(45) DEFAULT 'Text',
+  `SectionType` varchar(45) DEFAULT NULL,
+  `TemplateDetailID` int(11) DEFAULT NULL,
+  `TemplateLabelId` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `templatefieldsdetail`
+--
+
+INSERT INTO `templatefieldsdetail` (`TemplatefieldId`, `TemplateLabel`, `FieldType`, `SectionType`, `TemplateDetailID`, `TemplateLabelId`) VALUES
+(1, 'CandidateName', 'Text', 'header', 1, 'CanNameId'),
+(2, 'CandidateEmail', 'Text', 'header', 1, 'CanEmailId'),
+(3, 'ExperienceComment', 'Text Area', 'body', 1, 'CanExpCommentId');
 
 --
 -- Indexes for dumped tables
@@ -178,8 +212,8 @@ CREATE TABLE `templatedetail` (
 --
 ALTER TABLE `candidatedetail`
   ADD PRIMARY KEY (`CandidateID`),
-  ADD KEY `CandidateToPostId_idx` (`PostId`),
-  ADD KEY `CandidateToFeedbackId_idx` (`FeedbackId`);
+  ADD KEY `CandidateToPost_idx` (`PostId`),
+  ADD KEY `CandidateToCandidateFeedback_idx` (`FeedbackId`);
 
 --
 -- Indexes for table `candidatefeedbackdetail`
@@ -192,30 +226,22 @@ ALTER TABLE `candidatefeedbackdetail`
 --
 ALTER TABLE `commentdetail`
   ADD PRIMARY KEY (`commentid`),
-  ADD KEY `EmployeeDetail_idx` (`EmployeId`),
-  ADD KEY `CommentToCandidateDetaill_idx` (`CandidateId`),
-  ADD KEY `CommentToHeaderScetion_idx` (`HeaderScectionId`);
+  ADD KEY `CommentTOCandidate_idx` (`CandidateId`),
+  ADD KEY `CommentToEmployee_idx` (`EmployeId`);
 
 --
 -- Indexes for table `employeecandidatemapping`
 --
 ALTER TABLE `employeecandidatemapping`
-  ADD KEY `CandidateIdMapping_idx` (`CandidateId`),
-  ADD KEY `EmployeeIdMapping_idx` (`EmployeeId`);
+  ADD KEY `CandidateMapping_idx` (`CandidateId`),
+  ADD KEY `EmployeeMapping_idx` (`EmployeeId`);
 
 --
 -- Indexes for table `employeedetail`
 --
 ALTER TABLE `employeedetail`
   ADD PRIMARY KEY (`EmployeeId`),
-  ADD KEY `EmployeeToRoleId_idx` (`RoleId`);
-
---
--- Indexes for table `headersectiondetail`
---
-ALTER TABLE `headersectiondetail`
-  ADD PRIMARY KEY (`HeaderColumnID`),
-  ADD KEY `TemplateDetail_idx` (`TempateDetailId`);
+  ADD KEY `EmployeeToRole_idx` (`RoleId`);
 
 --
 -- Indexes for table `postdetail`
@@ -236,6 +262,65 @@ ALTER TABLE `templatedetail`
   ADD PRIMARY KEY (`TemplateId`);
 
 --
+-- Indexes for table `templatefieldsdetail`
+--
+ALTER TABLE `templatefieldsdetail`
+  ADD PRIMARY KEY (`TemplatefieldId`),
+  ADD KEY `HeaderSectionToTemplateDetail_idx` (`TemplateDetailID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `candidatedetail`
+--
+ALTER TABLE `candidatedetail`
+  MODIFY `CandidateID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `candidatefeedbackdetail`
+--
+ALTER TABLE `candidatefeedbackdetail`
+  MODIFY `FeedbackId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `commentdetail`
+--
+ALTER TABLE `commentdetail`
+  MODIFY `commentid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employeedetail`
+--
+ALTER TABLE `employeedetail`
+  MODIFY `EmployeeId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `postdetail`
+--
+ALTER TABLE `postdetail`
+  MODIFY `PostId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `roledetail`
+--
+ALTER TABLE `roledetail`
+  MODIFY `RoleId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `templatedetail`
+--
+ALTER TABLE `templatedetail`
+  MODIFY `TemplateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `templatefieldsdetail`
+--
+ALTER TABLE `templatefieldsdetail`
+  MODIFY `TemplatefieldId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -243,35 +328,34 @@ ALTER TABLE `templatedetail`
 -- Constraints for table `candidatedetail`
 --
 ALTER TABLE `candidatedetail`
-  ADD CONSTRAINT `CandidateToFeedbackId` FOREIGN KEY (`FeedbackId`) REFERENCES `candidatefeedbackdetail` (`FeedbackId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `CandidateToPostId` FOREIGN KEY (`PostId`) REFERENCES `postdetail` (`PostId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `CandidateToCandidateFeedback` FOREIGN KEY (`FeedbackId`) REFERENCES `candidatefeedbackdetail` (`FeedbackId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `CandidateToPost` FOREIGN KEY (`PostId`) REFERENCES `postdetail` (`PostId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `commentdetail`
 --
 ALTER TABLE `commentdetail`
-  ADD CONSTRAINT `CommentToCandidateDetaill` FOREIGN KEY (`CandidateId`) REFERENCES `candidatedetail` (`CandidateID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `CommentToHeaderScetion` FOREIGN KEY (`HeaderScectionId`) REFERENCES `headersectiondetail` (`HeaderColumnID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `EmployeeDetail` FOREIGN KEY (`EmployeId`) REFERENCES `employeedetail` (`EmployeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `CommentTOCandidate` FOREIGN KEY (`CandidateId`) REFERENCES `candidatedetail` (`CandidateID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `CommentToEmployee` FOREIGN KEY (`EmployeId`) REFERENCES `employeedetail` (`EmployeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `employeecandidatemapping`
 --
 ALTER TABLE `employeecandidatemapping`
-  ADD CONSTRAINT `CandidateIdMapping` FOREIGN KEY (`CandidateId`) REFERENCES `candidatedetail` (`CandidateID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `EmployeeIdMapping` FOREIGN KEY (`EmployeeId`) REFERENCES `employeedetail` (`EmployeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `CandidateMapping` FOREIGN KEY (`CandidateId`) REFERENCES `candidatedetail` (`CandidateID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `EmployeeMapping` FOREIGN KEY (`EmployeeId`) REFERENCES `employeedetail` (`EmployeeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `employeedetail`
 --
 ALTER TABLE `employeedetail`
-  ADD CONSTRAINT `EmployeeToRoleId` FOREIGN KEY (`RoleId`) REFERENCES `roledetail` (`RoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `EmployeeToRole` FOREIGN KEY (`RoleId`) REFERENCES `roledetail` (`RoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `headersectiondetail`
+-- Constraints for table `templatefieldsdetail`
 --
-ALTER TABLE `headersectiondetail`
-  ADD CONSTRAINT `TemplateDetail` FOREIGN KEY (`TempateDetailId`) REFERENCES `templatedetail` (`TemplateId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `templatefieldsdetail`
+  ADD CONSTRAINT `HeaderSectionToTemplateDetail` FOREIGN KEY (`TemplateDetailID`) REFERENCES `templatedetail` (`TemplateId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
