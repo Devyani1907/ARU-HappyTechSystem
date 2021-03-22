@@ -16,8 +16,8 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('HomeController');
-$routes->setDefaultMethod('index');
+$routes->setDefaultController('FeedbackController');
+$routes->setDefaultMethod('GetfeedbackTemplate');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
@@ -30,15 +30,18 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+//$routes->get('/', 'FeedbackController::GetfeedbackTemplate');
+//$routes->get('/GetfeedbackTemplateById', 'FeedbackController::GetfeedbackTemplate');
 $routes->get('/', 'HomeController::index');
 $routes->get('/login', 'UserController::login');
 $routes->get('/forgot-password', 'UserController::forgotPassword');
 $routes->get('/registration', 'UserController::registration'); 
 $routes->get('/dashboard', 'UserController::dashboard'); 
-$routes->get('/sendfeedback', 'UserController::sendFeedbackTemplate'); 
+$routes->get('/sendfeedback', 'FeedbackController::GetfeedbackTemplate'); 
 $routes->get('/contactus', 'UserController::contactUs'); 
 $routes->get('/findjob', 'JobController::findJob'); 
-$routes->get('/about-contactUs', 'HomeController::AboutAndContactUS'); 
+$routes->get('/about-contactUs', 'HomeController::AboutAndContactUS'); //
+$routes->get('/getcandidatedetail', 'UserController::get_candidate_detail'); 
 
 /**
  * --------------------------------------------------------------------

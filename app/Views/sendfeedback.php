@@ -5,8 +5,8 @@
 
 <div class="card card-warning">
             <div class="card-header">
-                <h3 class="card-title">Feedback Form</h3>
-                </div>
+                <h3 class="card-title">HR Feedback Form</h3>
+            </div>
               <div class="card-body">
                 <form>
                   <div class="row">

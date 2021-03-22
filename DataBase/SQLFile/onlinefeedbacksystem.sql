@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2021 at 10:34 PM
+-- Generation Time: Mar 22, 2021 at 10:33 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -42,7 +42,7 @@ CREATE TABLE `candidatedetail` (
   `DateOfBirth` timestamp NULL DEFAULT NULL,
   `ExperienceInYears` double DEFAULT NULL,
   `CandidateCode` varchar(45) DEFAULT NULL,
-  `IsDeleted` binary(1) DEFAULT NULL,
+  `IsDeleted` tinyint(4) DEFAULT NULL,
   `CreatedDateTime` timestamp NULL DEFAULT NULL,
   `ModifiedDateTime` timestamp NULL DEFAULT NULL,
   `Education` varchar(45) DEFAULT NULL
@@ -91,6 +91,27 @@ CREATE TABLE `commentdetail` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `departmentId` int(11) NOT NULL,
+  `departmentName` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`departmentId`, `departmentName`) VALUES
+(1, 'Accountant'),
+(2, 'Manager'),
+(3, 'Developer'),
+(4, 'Sales');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employeecandidatemapping`
 --
 
@@ -130,18 +151,23 @@ CREATE TABLE `postdetail` (
   `PostClosingDateTime` timestamp NULL DEFAULT NULL,
   `VacancyAvail` int(11) DEFAULT NULL,
   `ExperienceInYears` double DEFAULT NULL,
-  `IsDeleted` binary(1) DEFAULT NULL,
+  `IsDeleted` tinyint(4) DEFAULT NULL,
   `CreatedDateTime` timestamp NULL DEFAULT NULL,
   `ModifiedDateTime` timestamp NULL DEFAULT NULL,
-  `Education` varchar(45) DEFAULT NULL
+  `Education` varchar(45) DEFAULT NULL,
+  `departmentId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `postdetail`
 --
 
-INSERT INTO `postdetail` (`PostId`, `PostName`, `PostOpeningDateTime`, `PostClosingDateTime`, `VacancyAvail`, `ExperienceInYears`, `IsDeleted`, `CreatedDateTime`, `ModifiedDateTime`, `Education`) VALUES
-(1, 'Software Develoer', '2020-10-28 00:00:00', '2021-06-05 00:00:00', 5, 2, NULL, '2020-10-03 00:00:00', NULL, 'Master');
+INSERT INTO `postdetail` (`PostId`, `PostName`, `PostOpeningDateTime`, `PostClosingDateTime`, `VacancyAvail`, `ExperienceInYears`, `IsDeleted`, `CreatedDateTime`, `ModifiedDateTime`, `Education`, `departmentId`) VALUES
+(1, 'Software Develoer', '2020-10-28 00:00:00', '2021-06-05 00:00:00', 5, 2, 0, '2020-10-03 00:00:00', NULL, 'Master', 3),
+(2, 'Senior accountant', '2020-10-28 00:00:00', '2021-06-05 00:00:00', 3, 1, 0, '2020-10-03 00:00:00', NULL, 'B COM', 1),
+(3, 'Project Manager', '2020-10-28 00:00:00', '2021-06-05 00:00:00', 1, 5, 0, '2020-10-03 00:00:00', NULL, 'MBA', 2),
+(4, 'Junior Developer', '2020-10-28 00:00:00', '2021-06-05 00:00:00', 5, 2, 0, '2020-10-03 00:00:00', NULL, 'Bachelor', 3),
+(5, 'Senior Developer', '2020-10-28 00:00:00', '2021-06-05 00:00:00', 5, 2, 0, '2020-10-03 00:00:00', NULL, 'Master', 3);
 
 -- --------------------------------------------------------
 
@@ -201,7 +227,10 @@ CREATE TABLE `templatefieldsdetail` (
 INSERT INTO `templatefieldsdetail` (`TemplatefieldId`, `TemplateLabel`, `FieldType`, `SectionType`, `TemplateDetailID`, `TemplateLabelId`) VALUES
 (1, 'CandidateName', 'Text', 'header', 1, 'CanNameId'),
 (2, 'CandidateEmail', 'Text', 'header', 1, 'CanEmailId'),
-(3, 'ExperienceComment', 'Text Area', 'body', 1, 'CanExpCommentId');
+(3, 'ExperienceComment', 'Text Area', 'body', 1, 'CanExpCommentId'),
+(4, 'CandidateName', 'Text', 'header', 2, 'CanNameId'),
+(5, 'CandidateEmail', 'Text', 'header', 2, 'CanEmailId'),
+(6, 'PracticalExamComment', 'Text Area', 'body', 2, 'CanPracExamCommentId');
 
 --
 -- Indexes for dumped tables
@@ -230,6 +259,12 @@ ALTER TABLE `commentdetail`
   ADD KEY `CommentToEmployee_idx` (`EmployeId`);
 
 --
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`departmentId`);
+
+--
 -- Indexes for table `employeecandidatemapping`
 --
 ALTER TABLE `employeecandidatemapping`
@@ -247,7 +282,8 @@ ALTER TABLE `employeedetail`
 -- Indexes for table `postdetail`
 --
 ALTER TABLE `postdetail`
-  ADD PRIMARY KEY (`PostId`);
+  ADD PRIMARY KEY (`PostId`),
+  ADD KEY `PostToDepartment_idx` (`departmentId`);
 
 --
 -- Indexes for table `roledetail`
@@ -276,7 +312,7 @@ ALTER TABLE `templatefieldsdetail`
 -- AUTO_INCREMENT for table `candidatedetail`
 --
 ALTER TABLE `candidatedetail`
-  MODIFY `CandidateID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CandidateID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `candidatefeedbackdetail`
@@ -291,6 +327,12 @@ ALTER TABLE `commentdetail`
   MODIFY `commentid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `departmentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `employeedetail`
 --
 ALTER TABLE `employeedetail`
@@ -300,7 +342,7 @@ ALTER TABLE `employeedetail`
 -- AUTO_INCREMENT for table `postdetail`
 --
 ALTER TABLE `postdetail`
-  MODIFY `PostId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PostId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `roledetail`
@@ -318,7 +360,7 @@ ALTER TABLE `templatedetail`
 -- AUTO_INCREMENT for table `templatefieldsdetail`
 --
 ALTER TABLE `templatefieldsdetail`
-  MODIFY `TemplatefieldId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `TemplatefieldId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -350,6 +392,12 @@ ALTER TABLE `employeecandidatemapping`
 --
 ALTER TABLE `employeedetail`
   ADD CONSTRAINT `EmployeeToRole` FOREIGN KEY (`RoleId`) REFERENCES `roledetail` (`RoleId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `postdetail`
+--
+ALTER TABLE `postdetail`
+  ADD CONSTRAINT `PostToDepartment` FOREIGN KEY (`departmentId`) REFERENCES `department` (`departmentId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `templatefieldsdetail`

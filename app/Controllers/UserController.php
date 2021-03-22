@@ -22,11 +22,35 @@ class UserController extends BaseController
 		return view('dashboard');
 	}
 
-	public function sendFeedbackTemplate()
-	{
-		return view('sendfeedback');
-	}
+	// public function get_candidate_detail()
+	// {
+	// 	$this->load -> model("candidateDetailModel");
+	// 	$fetch_data = $this -> candidateDetailModel-> make_datatable();
+	// 	$data = array();
+	// 	foreach($fetch_data as $row)
+	// 	{
+	// 		$sub_array = array();
+	// 		$sub_array[] = $row->FirstName;
+	// 		$sub_array[] = $row->FirstName;
+	// 		$sub_array[] = $row->FirstName;
+	// 		$sub_array[] = $row->FirstName;
+	// 		$sub_array[] = $row->FirstName;
+	// 		$data[] = $sub_array;
 
+	// 	}
+
+	// 	$output = array(
+	// 		"draw" => intval($_POST["draw"]),
+	// 		"recordsTotal" => $this-> candidateDetailModel -> get_all_data(),
+	// 		"recordsFiltered" => $this-> candidateDetailModel -> get_filtered_data(),
+	// 		"data" => $data	
+	// 	);
+
+	// 	echo json_encode($output);
+	// }
+
+	
+	
 	public function contactUs()
 	{
 		return view('contactus');
