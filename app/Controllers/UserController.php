@@ -1,10 +1,13 @@
 <?php namespace App\Controllers;
 
+use App\Models\EmployeeDetailModel;
+
 class UserController extends BaseController
 {
 	public function login()
 	{
-		return view('login');
+		$data["errorMessage"]="";
+		return view('login', $data);
 	}
 
 	public function forgotPassword()

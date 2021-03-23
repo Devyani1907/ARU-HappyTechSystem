@@ -5,9 +5,7 @@
                 <h3 class="card-title">Accountant</h3>
                 <div class="card-tools">
                 </div>
-                <!-- /.card-tools -->
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
               <div class="row">
                 <div class="col-12">
@@ -34,10 +32,8 @@
                 </div>
                 </div> 
               </div>
-              <!-- /.card-body -->
               <div class="card-footer p-0">
               </div>
             </div>
-<!-- /.card -->
 </div>
 
