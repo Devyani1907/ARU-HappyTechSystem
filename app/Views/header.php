@@ -45,23 +45,34 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-bars"></i>
               <p>
-                Manage Feedback
+                Manage Template
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="/manageSection" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Create Feedback</p>
+                  <p>Add/Edit/Delete Section</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="/manageTemplate" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Edit Feedback</p>
+                  <p>Add/Edit/Delete Template</p>
                 </a>
               </li>
+            </ul>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-bars"></i>
+              <p>
+                Manage Feedback
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="/sendfeedback" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -71,7 +82,7 @@
             </ul>
           </li>
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
+            <a href="/EmployeeController/Logout" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Logout

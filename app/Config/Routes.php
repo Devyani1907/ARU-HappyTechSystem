@@ -16,8 +16,8 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('FeedbackController');
-$routes->setDefaultMethod('GetfeedbackTemplate');
+$routes->setDefaultController('HomeController');
+$routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
@@ -30,18 +30,22 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-//$routes->get('/', 'FeedbackController::GetfeedbackTemplate');
-//$routes->get('/GetfeedbackTemplateById', 'FeedbackController::GetfeedbackTemplate');
 $routes->get('/', 'HomeController::index');
-$routes->get('/login', 'UserController::login');
-$routes->get('/forgot-password', 'UserController::forgotPassword');
-$routes->get('/registration', 'UserController::registration'); 
-$routes->get('/dashboard', 'UserController::dashboard'); 
+$routes->get('/login', 'EmployeeController::login');
+$routes->get('/dashboard', 'EmployeeController::dashboard'); 
 $routes->get('/sendfeedback', 'FeedbackController::GetfeedbackTemplate'); 
-$routes->get('/contactus', 'UserController::contactUs'); 
-$routes->get('/findjob', 'JobController::findJob'); 
+$routes->get('/contactus', 'CandidateController::contactUs'); 
+$routes->post('/save-feedback', 'FeedbackController::saveTemplateDetails'); 
 $routes->get('/about-contactUs', 'HomeController::AboutAndContactUS'); //
-$routes->get('/getcandidatedetail', 'UserController::get_candidate_detail'); 
+$routes->get('/get-candidate-detail', 'CandidateController::get_candidate_detail'); 
+$routes->get('/manageSection', 'TemplateController::GetSection'); 
+$routes->get('/manageTemplate', 'TemplateController::GetTemplate'); 
+$routes->get('/getSectionWithComments', 'TemplateController::GetSectionWithComments'); 
+$routes->get('/saveSectionWithComments', 'TemplateController::SaveSectionWithComments'); 
+$routes->post('/authenticateUser', 'EmployeeController::CheckLoginCrendentials');
+$routes->post('/logout', 'EmployeeController::Logout');
+$routes->get('/findjob', 'JobController::findJob'); 
+$routes->post('/save-candidate', 'CandidateController::saveCandidate');
 
 /**
  * --------------------------------------------------------------------

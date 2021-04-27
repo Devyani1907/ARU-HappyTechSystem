@@ -17,21 +17,73 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title">Apply Job</h5>
+        <button type="button" class="close"  aria-label="Close" onclick="CloseCandidateInfoModal()" id="jobModalClose">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- form start -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- left column -->
+                <div class="col-md-12">
+                  <div class="card card-primary">
+                    <form id="candidateForm" method="POST" action="<?php echo base_url() ?>/save-candidate" >
+                          <div class="card-body">
+                          <div class="form-group">
+                              <label for="exampleInputEmail1">Full Name</label>
+                              <input type="text" class="form-control"  name="Name" id="Name" placeholder="Enter name">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" class="form-control" name="Email" id="Email" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Mobile Number</label>
+                              <input type="text" class="form-control"  name="mobileNum" id="mobileNum" placeholder="Enter Mobile Number">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Experience in years</label>
+                              <input type="text" class="form-control"  name="exp" id="exp" placeholder="Enter Experience">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Highest Education</label>
+                              <input type="text" class="form-control"  name="edu" id="edu" placeholder="Enter Education">
+                            </div>
+                            <!-- <div class="form-group">
+                              <label for="exampleInputFile">File input</label>
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="exampleInputFile">
+                                  <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                  <span class="input-group-text">Upload</span>
+                                </div> 
+                              </div>
+                            </div> -->
+                          </div>
+                          <!-- /.card-body -->
+                          <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </div>
+                        </form>
+                      </div>
+                
+                
+                  </div>
+                </div>  
+            </div>  
+          </div> 
+        </section>   
+        <!-- form end-->
       </div>
     </div>
   </div>
 </div>
+
 
 <div class="wrapper">
   <aside class="main-sidebar elevation-4">
@@ -65,6 +117,7 @@
         <div class="bg-gray-dark color-palette">
           <button type="button">
             <span><a href="/" class="">Home</a></span>
+              <!-- <button id="myBtn">Open Modal</button> -->
           </button>
         </div>
       </div>
@@ -84,9 +137,9 @@
 </body>
 
 
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script>
 
 var departmentAndPostData = null;
@@ -96,7 +149,6 @@ function loadPosts(departmentId)
       $("#jobCardId").html("");
       let posts = departmentAndPostData.posts;
       posts.forEach(function(post){
-      console.log(JSON.stringify(post));  
       if(departmentId == post.departmentId)
       {
         $("#jobCardId").append('<div class="col-md-3">'); 
@@ -117,7 +169,7 @@ function loadPosts(departmentId)
         $("#jobCardId").append('<li class="pt-2 pb-2 nav-item">Vacancy Available <span class="badge bg-warning">'+post.VacancyAvail+'</span></li></ul>');
         $("#jobCardId").append('</div>');
         $("#jobCardId").append('<div class="col-12 pt-2">');
-        $("#jobCardId").append('<button type="button" class="btn btn-block btn-info" data-toggle="modal" data-target="#applyJobModal" >Apply</button>');
+        $("#jobCardId").append('<button class="btn btn-block btn-info" onclick="OpenCandidateInfoModal()" id="candidateInfoId">Apply</button>');
         $("#jobCardId").append('</div>');
         $("#jobCardId").append('</div> ');
         $("#jobCardId").append('</div>');
@@ -125,20 +177,40 @@ function loadPosts(departmentId)
         $("#jobCardId").append('</div>');
         $("#jobCardId").append('</div>');
         $("#jobCardId").append('</div>');
-
-        //$("#jobCardId").load("jobcard.php"); 
-        // $.ajax({
-        // url: '/JobController/jobCard',
-        // success: function(html) {
-        //   $("#jobCardId").append(html);
-        // }
-        // });
-
       } 
     });
 }
 
+function OpenCandidateInfoModal()
+{
+  $('#applyJobModal').modal('show');
+}
+
+function CloseCandidateInfoModal()
+{
+  $('#applyJobModal').modal('hide');
+}
+
+
+
 $(document).ready(function() {
+
+  var modal = document.getElementById("applyJobModal");
+
+  // Get the <span> element that closes the modal
+  var jobModelCloseBtn = document.getElementsByClassName("close")[0];
+
+  // jobModelCloseBtn.onclick = function() {
+  //   modal.style.display = "none";
+  // }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    }
+  }
+
   $.ajax(
     {
       url: "<?php echo base_url() ?>/PostController/GetPostAndDepartment/",

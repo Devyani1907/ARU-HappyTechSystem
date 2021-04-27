@@ -14,7 +14,7 @@ class PostModel extends Model
 
     function GetAllPostById($postId)
     {
-        return $this->where("PostId",$postId)->findAll();
+        return $this->where("PostId",$postId)->findcolumn("PostName");
     }
 }
 ?>
